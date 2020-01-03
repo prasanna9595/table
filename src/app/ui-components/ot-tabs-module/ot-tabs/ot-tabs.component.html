@@ -1,0 +1,8 @@
+<ul [ngClass]="style">
+  <ng-container *ngFor="let tab of tabs; let i=index">
+    <li [ngClass]="getActiveTab(tab.isActive)" (click)="getClickedTab(tab,i)">
+      <a>{{tab.name}}<span class="ot-badge" *ngIf="tab.countBadge">
+          {{tab.countBadge}}</span></a>
+    </li>
+  </ng-container>
+</ul>

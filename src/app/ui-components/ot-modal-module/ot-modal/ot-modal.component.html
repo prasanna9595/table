@@ -1,0 +1,16 @@
+<div class="ot-modal ot-modal--is-active">
+  <div class="ot-modal__background">
+  </div>
+  <div class="ot-modal__content" [ngStyle]="{'width': width+'px', 'height': height+'px'}">
+    <div class="ot-modal__header">
+      <ng-content select="[header]"></ng-content> <!-- Dynamic stuff here -->
+    </div>
+    <div class="ot-modal__body">
+      <ng-content select="[body]"></ng-content>   <!-- Dynamic stuff here -->
+    </div>
+    <div class="ot-modal__footer">
+      <ng-content select="[footer]"></ng-content>
+      <!--Generally buttons do fall here -->
+    </div>
+  </div>
+</div>

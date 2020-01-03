@@ -1,0 +1,60 @@
+
+$ot-notification-spacing : 0;
+$ot-notification-zindex : 100;
+$ot-notification-container-width : 384px;
+$ot-notification-container-top-spacing : 5px;
+$ot-notification-message-text-size : 1.125rem;
+$ot-successnotification-borderBottom : 4px solid #067d14;
+$ot-notification-container-height : 62px;
+$ot-notification-container-spacing : 0 15px;
+.ot-notification {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  top: $ot-notification-spacing;
+  right: $ot-notification-spacing;
+  left: $ot-notification-spacing;
+  height: $ot-notification-spacing;
+  overflow: visible;
+  z-index: $ot-notification-zindex;
+  .ot-notifcation-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+    min-width : $ot-notification-container-width;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, .3);
+    background: #FFFFFF;
+    margin-top: $ot-notification-container-top-spacing;
+    min-height: $ot-notification-container-height;
+    padding : $ot-notification-container-spacing;
+    border-bottom: $ot-successnotification-borderBottom;
+    .ot-notification-icon {
+        display: flex;
+        align-items: center;
+        padding-right: 8px;
+    }
+    .ot-notification-message {
+      display: flex;
+      align-items: center;
+      flex: 1;
+      font-size: $ot-notification-message-text-size;
+      line-height: 1.75rem;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    .ot-dismiss-icon {
+        display: flex;
+        align-items: center;
+        cursor:pointer;
+        padding-left: 15px;
+    }
+    &.success {
+        border-bottom: $ot-successnotification-borderBottom;
+    }
+    &.failure {
+        border-bottom : 4px solid #df3324;
+    }
+  }
+}

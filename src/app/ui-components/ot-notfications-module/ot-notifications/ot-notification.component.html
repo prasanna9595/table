@@ -1,0 +1,13 @@
+<div class="ot-notification"  *ngIf ="notification">
+    <div class="ot-notifcation-container" @enableNotificationAnimation [ngClass]="notification.type">
+        <div class="ot-notification-icon">
+            <img style="width:24px;height:24px" src="assets\icons\success.svg"> <!-- will be replaced by svg soon-->
+        </div>
+        <div class="ot-notification-message">
+           {{ notification.message }}
+        </div>
+        <div class="ot-dismiss-icon" (click) = "clearNotification()">
+            <img style="width:24px;height:24px" src="assets\icons\dismiss.svg">
+        </div>
+    </div>
+</div>

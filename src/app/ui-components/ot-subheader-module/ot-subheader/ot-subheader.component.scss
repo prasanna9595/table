@@ -1,0 +1,24 @@
+$ot-crp-header-height: 48px;
+$ot-crp-headerbackground: #f5f7fa;
+$ot-crp-headertext-size: 20px;
+$ot-crp-text-lineHeight: 32px;
+.crp-col-12 {
+  display: flex;
+  flex : 1;
+  .ot-crp-subheader {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    height: $ot-crp-header-height;
+    background: $ot-crp-headerbackground;
+    font-size: $ot-crp-headertext-size;
+    line-height: $ot-crp-text-lineHeight;
+    &--is-Centered {
+      // usually for single text contents, when we want to align the text in center
+      justify-content: center;
+    }
+    &--is-Space {
+      justify-content: space-between;
+    }
+  }
+}

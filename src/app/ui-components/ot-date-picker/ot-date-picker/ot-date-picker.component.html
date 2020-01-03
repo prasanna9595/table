@@ -1,0 +1,60 @@
+<div class="ot-date-time-picker">
+  <input type="text" class="ot-datepicker" #datepicker placeholder="MM/DD/YYYY" [value]="datePickerSelcetedValue"
+    (keypress)="restricString($event)" (keyup)="onKeyUpUpdateCalendar($event)" (click)="onFocusUpdateCalendar($event)" (blur)="onBlurDateValidation($event)" />
+
+  <div class="ot-cal-icon" (click)="calendarActive('icon')">
+    <img src="assets/icons/toolbar_calendar.svg" class="ot-cal-icon-img" alt="" />
+  </div>
+  <p *ngIf="error" style="color: #ad0a0a; font-size: 12px;">{{error}}</p>
+  <div class="ot-cal-inner" *ngIf="calendarPanel" (click)="onCalClick($event)">
+    <span (click)="showNextPrevMonth($event, 'prev')" class="dtp-prev"><img src="assets/icons/caret_left16.svg"
+        alt="Prev" /></span>
+    <div class="ot-cal-header" (click)="showMonthYear($event)">
+      <span class="ot-month-name">{{currentMonth.name}}</span> <span class="ot-year-name">{{currentYear}}</span>
+    </div>
+    <div class="ot-months-year" *ngIf="monthYearPanel">
+      <div class="ot-months-year-inner">
+        <div class="months">
+          <div class="ot-title">Months</div>
+          <ul>
+            <li *ngFor="let month of months; let m = index" [ngClass]="m === currentMonth.index ? '--is-active':''"
+              (click)="updateCalByYearMonthSelction(month, 'months', m)">
+              {{month}}
+            </li>
+          </ul>
+        </div>
+        <div class="years">
+          <div class="ot-title">Years</div>
+          <ul>
+            <li *ngFor="let year of yearsList; let y = index" [ngClass]="year === currentYear ? '--is-active':''"
+              (click)="updateCalByYearMonthSelction(year, 'years', y)">
+              {{year}}
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="ot-cal-buttons">
+        <button role="button" class="ot-btn" (click)="clearCalSelection()">
+          Cancel</button>
+        <button class="ot-btn ot-btn--is-primary" (click)="calInit(currentMonth.index, currentYear)">
+          Apply
+        </button>
+      </div>
+    </div>
+    <div class="ot-weeks">
+      <div *ngFor="let week of weeks;">{{week | slice:0:3}}</div>
+    </div>
+    <div class="ot-datesView">
+      <ng-container *ngFor="let date of dates; let i = index">
+        <!-- <ng-container *ngFor="let week of weeks; let j = index"> -->
+        <div [ngClass]="getDateStyles(date)" (click)="date.isDisabled === false?  getSelectedDate($event, date) : ''">
+          <!-- {{date.day === j ? date.date : ''}} -->
+          <span>{{date.date}}</span>
+        </div>
+        <!-- </ng-container> -->
+      </ng-container>
+    </div>
+    <span (click)="showNextPrevMonth($event, 'next')" class="dtp-next"><img src="assets/icons/caret_right16.svg"
+        alt="Prev" /></span>
+  </div>
+</div>

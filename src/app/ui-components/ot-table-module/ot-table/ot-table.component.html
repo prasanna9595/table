@@ -1,0 +1,99 @@
+<h1>Table</h1>
+<div class="columnsToggle">
+    <label *ngFor="let col of tColumns; let i = index;" for="{{col.title}}">
+        <input type="checkbox" [checked]="col.visibility" (click)="showColumns(i, $event)" id="{{col.title}}" />
+        {{col.title}}</label>
+</div>
+<div class="ot-table-container">
+    <div class="ot-table-header">
+        <div class="oth-left">
+            <ul class="ot-icons-group">
+                <li><a href="javascript:;"><img src="assets/icons/filter24.svg" /></a></li>
+                <li><a href="javascript:;"><img src="assets/icons/add.svg" /></a></li>
+            </ul>
+        </div>
+        <div class="oth-center">
+            <div class="ot-icon-with-text">
+                <img src="assets/icons/mime_folder.svg" alt="" />
+                <label>
+                    Documentum
+                </label>
+                <span class="action"><img src="assets/icons/caret_down.svg" alt="" /></span>
+            </div>
+        </div>
+        <div class="oth-right">
+            <ul class="ot-icons-group">
+                <li><a href="javascript:;"><img src="assets/icons/action_favorite24.svg" /></a></li>
+                <li><a href="javascript:;"><img src="assets/icons/action_search24.svg" /></a></li>
+                <li><a href="javascript:;"><img src="assets/icons/word.svg" /></a></li>
+                <li><a href="javascript:;"><img src="assets/icons/mime_document.svg" /></a></li>
+            </ul>
+        </div>
+    </div>
+    <table class="ot-table  ot-table-border-bottom ot-table-hover">
+        <thead>
+            <tr>
+                <ng-container *ngFor="let cell of tColumns; let cI = index">
+                    <th *ngIf="cell.visibility && cell.type === 'input'" class="ot-table-checkbox">
+                        <div class="ot-form-control">
+                            <label class="ot-checkbox">
+                                <input type="checkbox" (click)="checkAll()" />
+                                <div class="ot-checkbox__wrapper"><span class="ot-checkbox__icon"></span><span
+                                        class="ot-checkbox__text"></span></div>
+                            </label>
+                        </div>
+                    </th>
+                    <th *ngIf="cell.visibility && cell.type !== 'input'"
+                        (click)="cell.type !== 'input' ? sortBy(cell.property) : ''">
+                        {{cell.title}}
+                        <img *ngIf="showSortIcon === (cell.property)" [src]="(sortDirection === 'desc')  ? 
+                    'assets/icons/caret_down.svg' : 'assets/icons/caret_up.svg' " />
+                    </th>
+                </ng-container>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor=" let row of dataSource; let i = index">
+                <ng-container *ngFor="let cell of tColumns;">
+                    <td *ngIf="cell.visibility && cell.type === 'input'" class="select-checkbox">
+                        <div class="ot-form-control">
+                            <label class="ot-checkbox" [attr.for]="('data' + i)">
+                                <input type="checkbox" [attr.id]="('data' + i)" [attr.name]="('data' + i)"
+                                    (click)="getCellClick($event, i, cell.property)" />
+                                <div class="ot-checkbox__wrapper"><span class="ot-checkbox__icon"></span><span
+                                        class="ot-checkbox__text"></span></div>
+                            </label>
+                        </div>
+                    </td>
+                    <td *ngIf="cell.visibility && cell.type === 'image'" class="ot-48x"
+                        (click)="getCellClick($event, i, cell.property)">
+                        <img [src]="row[cell.property]" alt="" />
+                    </td>
+                    <td *ngIf="cell.visibility && cell.type === 'text'"
+                        (click)="getCellClick($event, i, cell.property)">
+                        {{row[cell.property]}}
+                    </td>
+                    <td *ngIf="cell.visibility && cell.type === 'button'" class="ot-table-sm-actions"
+                        (click)="getCellClick($event, i, cell.property)">
+                        {{row[cell.property]}}
+                    </td>
+                    <td *ngIf="cell.visibility && cell.type === 'actions'" class="ot-table-sm-actions">
+                        <!-- <div
+                            [ngClass]="viewActions && viewActions[i + 1] ? 'ot-dropdown ot-dropdown--is-right ot-dropdown--is-active' : 'ot-dropdown ot-dropdown--is-left'">
+                            <div class="ot-dropdown__trigger">
+                                <img src="assets/icons/caret_down.svg" alt="" class="ot-dropdown__icon" class="ot-16x"
+                                    (click)="toggle(i)" />
+                            </div> -->
+
+                        <crp-ot-context-menu [attr.id]="i+1" crp-ot-context-menu [otContextMenu]="rowActions"
+                            (clickSelected)="getRowActions($event, (i+1));">
+                        </crp-ot-context-menu>
+
+                        <!-- </div> -->
+                    </td>
+                </ng-container>
+            </tr>
+        </tbody>
+    </table>
+    <div class="ot-table-footer"></div>
+</div>

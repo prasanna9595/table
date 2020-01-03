@@ -1,0 +1,5 @@
+<div class="crp-col-12">
+    <div class="ot-crp-subheader" [ngStyle]="{'background' : subHeaderBackgroundColor,'height' : subHeaderHeight}" [ngClass]="getSubheaderClass()">
+        <ng-content select="[headerContent]"></ng-content> <!-- Dynamic stuff here --> <!-- Use cases like tabs , text may fall here-->
+    </div>
+</div>

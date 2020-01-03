@@ -1,0 +1,77 @@
+<div class="ot-ui-component-home">
+  <div class="ot-back">
+    <a [routerLink]="['/']">
+      &lt; back to home</a>
+  </div>
+
+  <div class="ot-navigation">
+    <a (click)="showItem = 'datePicker'">Datepicker</a>
+    <a (click)="showItem = 'table'">Table</a>
+    <a (click)="showItem = 'contextMenu'">Context Menu</a>
+    <a (click)="showItem = 'modal'">Modal</a>
+    <a (click)="showItem = 'tabs'">Tabs</a>
+    <a (click)="showItem = 'button'">Buttons</a>
+    <a (click)="showItem = 'tooltip'">Tooltip</a>
+    <a (click)="showItem = 'subheader'">Sub Header</a>
+    <a (click)="showItem = 'notification'">Notification</a>
+    <a (click)="showItem = 'breadCrumb'">Breadcrumbs</a>
+  </div>
+  <div class="ot-view-pane">
+    <!-- Date Picker -->
+    <div class="date-picker-view" *ngIf="showItem === 'datePicker'">
+      <crp-ot-date-picker [config]="datePickerConfig" (OnSelection)="getDatePickerResponse($event)">
+      </crp-ot-date-picker>
+    </div>
+    <div *ngIf="tempDates" class="selected-dates">
+      <span *ngFor="let date of tempDates; let i = index">
+        <h6>Attempt {{i+1}}</h6>
+        {{date}}
+      </span>
+    </div>
+
+    <!--Table Component-->
+    <div style="text-align: center;" *ngIf="showItem === 'table'">
+      <button (click)="showData('mock')">Mock Data</button> &nbsp;&nbsp;&nbsp; <button (click)="showData('API')">API
+        Response</button>
+    </div>
+    <crp-ot-table *ngIf="showItem === 'table'" [dataSource]="tData" [tColumns]="tColumnsList"
+      [rowActions]="rowActionList" (rowData)="getRowSelection($event)"></crp-ot-table>
+
+    <!--Context Menu Component-->
+    <crp-ot-context-menu *ngIf="showItem ==='contextMenu'" [otContextMenu]="otContextMenu"
+      (clickSelected)="doSelectedAction($event)">
+    </crp-ot-context-menu>
+
+    <!--Modal Component-->
+
+    <div *ngIf="showItem === 'modal'">
+      <button class="ot-btn ot-btn--is-primary" (click)="openModal()">Launch modal</button>
+    </div>
+    <!--Button Component-->
+    <div *ngIf="showItem === 'button'">
+      <crp-ot-button [buttons]="buttons"></crp-ot-button>
+    </div>
+    <!--Tabs Component-->
+    <div *ngIf="showItem === 'tabs'">
+      <crp-ot-tabs [tabs]="tabs" (clickedSelected)="doSelectedAction($event)" type="Primary"></crp-ot-tabs>
+    </div>
+    <!--ToolTip Component-->
+    <div *ngIf="showItem === 'tooltip'">
+      <p [crpOtTooltipMessage]="message" [crpOtTooltipAlign]="align">Tooltip</p>
+    </div>
+    <!--Sub header Component-->
+    <crp-ot-subheader [subHeaderFlexProperty]="'centered'" [subHeaderBackgroundColor]="'#DCE4E8'"
+      *ngIf="showItem === 'subheader'" style="display: flex;flex:1">
+      <ng-container headerContent>
+        <div>Create Application</div>
+      </ng-container>
+    </crp-ot-subheader>
+    <crp-ot-demonotification *ngIf="showItem === 'notification'"></crp-ot-demonotification>
+    <!--Bread Crumb Component-->
+    <div *ngIf="showItem === 'breadCrumb'">
+      <h3> BreadCrumbs</h3><br>
+      <!--crp-ot-bread-crumb [breadcrumbs]="breadcrumbs" *ngIf="showItem === 'breadCrumb'"></crp-ot-bread-crumb-->
+      <crp-ot-bread-crumb [breadcrumbs]="breadcrumbsPrimary"></crp-ot-bread-crumb>
+    </div>
+  </div>
+</div>

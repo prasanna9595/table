@@ -1,0 +1,16 @@
+<div [ngClass]="contextMenuStyles" *ngIf="otContextMenu" style="display: inline-flex;">
+  <div class="ot-dropdown__trigger">
+    <img alt="add" [src]="otContextMenu?.displayOptions?.icon" *ngIf="otContextMenu?.displayOptions?.icon"
+      [ngStyle]="{'width': otContextMenu?.displayOptions?.size + 'px',  'height' : otContextMenu?.displayOptions?.size + 'px'} "
+      (click)="toggle()" class="ot-dropdown__icon">
+  </div>
+  <ul class="ot-dropdown__menu">
+    <li *ngFor="let menu of otContextMenu.menulist; let i=index" class="ot-dropdown__item"
+      [ngClass]="otContextMenu.isUserMenu ? 'user-menu': ''" (click)="getSelectedItem($event, menu,i)">
+      <img alt="check" [src]="menu.icon" alt="" *ngIf="menu.icon" class="ot-dropdown__icon">
+      <span>
+        {{menu.title}}
+      </span>
+    </li>
+  </ul>
+</div>

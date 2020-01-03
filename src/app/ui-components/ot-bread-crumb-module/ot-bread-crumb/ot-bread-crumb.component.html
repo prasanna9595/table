@@ -1,0 +1,31 @@
+<nav #ot_breadcrumbs_ref id="ot-breadcrumbs"
+  [ngClass]="[breadcrumbs.type==='primary'? 'ot-breadcrumbs ot-breadcrumbs--is-primary': 'ot-breadcrumbs']">
+  <!--Noraml Sized Breadcrumbs-->
+  <ul *ngIf="!showExtraBreadcrumbs && showBreadCrumbs" class="ot-breadcrumbs__list" #ot_breadcrumbs_ul_ref>
+    <li *ngFor="let crumb of breadcrumbs.list" [routerLink]="[crumb.link]"
+      [ngClass]="[crumb.isActive? 'ot-breadcrumbs__item ot-breadcrumbs__item--is-active': 'ot-breadcrumbs__item']">
+      {{crumb.name}}
+    </li>
+  </ul>
+  <!--Extended Size Breadcrumbs-->
+  <ul *ngIf="showExtraBreadcrumbs && breadcrumbs.list.length>0 && showBreadCrumbs" class="ot-breadcrumbs__list">
+    <li class="ot-breadcrumbs__item">
+      {{breadcrumbs.list[0].name}}
+    </li>
+    <li class="ot-breadcrumbs__item ot-breadcrumbs__item-extrabreadcrumb">
+      <div
+        [ngClass]="extraBreadcrumbsClicked ? 'ot-dropdown ot-dropdown--is-left ot-dropdown--is-active' : 'ot-dropdown ot-dropdown--is-left'">
+        <div class="ot-dropdown__trigger">
+          <span (click)="toggleContextMenu(breadcrumbs.list.slice(1,divisionFactor))"
+            class="ot-dropdown__icon">...</span>
+        </div>
+        <crp-ot-context-menu [otContextMenu]="otContextMenu" *ngIf="otContextMenu" (clickSelected)="doSelectedAction($event)">
+        </crp-ot-context-menu>
+      </div>
+    </li>
+    <li *ngFor="let crumb of breadcrumbs.list.slice(divisionFactor)"
+      [ngClass]="[crumb.isActive? 'ot-breadcrumbs__item ot-breadcrumbs__item--is-active': 'ot-breadcrumbs__item']">
+      {{crumb.name}}
+    </li>
+  </ul>
+</nav>

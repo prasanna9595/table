@@ -1,0 +1,257 @@
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  //   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  //   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  //   border-radius: 5px;
+  background-color: #fff;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 50px;
+  //   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+  //   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+  background-color: #cccccc;
+}
+
+@mixin dateWCenter {
+  width: 42px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+@mixin nextPrev {
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  margin-top: -8px;
+  cursor: pointer;
+}
+
+.ot-date-time-picker {
+  width: 100%;
+  position: absolute;
+  top: 9px;
+  z-index: 999999;
+  left: 0;
+
+  input {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .ot-cal-icon {
+    position: absolute;
+    right: 10px;
+    top: 9px;
+    z-index: 9999;
+    cursor: pointer;
+    img {
+      width: 24px;
+      height: 24px;
+    }
+  }
+  .ot-cal-inner {
+    width: 360px;
+    position: relative;
+    display: inline-block;
+    box-shadow: 0 0 3px #dadada;
+    font-size: 15px;
+    padding: 0;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    background-color: #fff;
+
+    .ot-cal-header {
+      text-align: center;
+      padding: 1em;
+      cursor: pointer;
+      .ot-month-name {
+        font-size: 1.375em;
+        color: #0072aa;
+        font-weight: bold;
+        display: inline-block;
+        padding-right: 1em;
+      }
+      .ot-year-name {
+        font-size: 1.25em;
+        color: #666666;
+        font-weight: 400;
+      }
+    }
+    .dtp-prev,
+    .dtp-next {
+      @include nextPrev();
+    }
+
+    .dtp-next {
+      left: initial;
+      right: 10px;
+    }
+
+    .ot-weeks {
+      display: -webkit-box;
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      flex-direction: row;
+      padding: 0.4em;
+      font-weight: 500;
+      background-color: #f0f0f0;
+      border-top: 1px solid #f2f2f2;
+      border-bottom: 1px solid #f2f2f2;
+      div {
+        @include dateWCenter();
+        font-size: 0.875em;
+        color: #666666;
+        &:first-child {
+          margin-left: 2em;
+        }
+      }
+    }
+
+    .ot-datesView {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-content: space-around;
+      width: 300px;
+      margin: auto;
+
+      div {
+        @include dateWCenter();
+        font-weight: 500;
+        cursor: pointer;
+
+        span {
+          display: block;
+          border-radius: 100%;
+          padding: 4px;
+          color: #666666;
+          border: 2px solid transparent;
+          margin: 4px;
+        }
+
+        &:hover {
+          span {
+            background-color: #bac9ce;
+            color: #333;
+            border: 2px solid #bac9ce;
+            transition: ease-in-out 0.3s;
+          }
+        }
+        &:active {
+          span {
+            background-color: #dfe7ea;
+            color: #333;
+            border: 2px solid #dfe7ea;
+            transition: ease-in-out 0.3s;
+          }
+        }
+        &.ot-today-active {
+          span {
+            border: 2px solid #0072aa;
+            background-color: transparent;
+            color: #333333;
+            transition: ease-in-out 0.3s;
+          }
+        }
+
+        &.ot-date-disbaled{
+          span {
+            border: 2px solid transparent;
+            background-color: transparent;
+            color: #999;
+            pointer-events: none;
+            transition: ease-in-out 0.3s;
+          }
+        }
+      }
+    }
+
+    .ot-months-year {
+      position: absolute;
+      left: 0;
+      top: 0;
+      background-color: #fff;
+      right: 0;
+      bottom: 0;
+      z-index: 99;
+      display: flex;
+      flex-direction: column;
+
+      .ot-months-year-inner {
+        display: flex;
+        flex-direction: row;
+
+        .months,
+        .years {
+          flex: 1;
+          transition: ease-out 0.3s;
+
+          .ot-title {
+            padding: 10px 20px;
+            margin: 0;
+            background-color: #fdfdfd;
+            font-weight: bold;
+            color: #0072aa;
+            font-size: 14px;
+          }
+
+          ul {
+            padding: 0;
+            margin: 0;
+            height: 210px;
+            overflow-x: hidden;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            li {
+              padding: 0.5em 1em;
+              border: 2px solid transparent;
+              cursor: pointer;
+              //  border-top: 1px solid #e1e1e1;
+
+              &:hover {
+                background-color: #dfe7ea;
+                color: #333333;
+              }
+              &:active {
+                background-color: #bac9ce;
+                color: #333333;
+              }
+              &.--is-active {
+                //  background-color: #dfe7ea;
+                border: 2px solid #0072aa;
+                color: #333;
+              }
+            }
+          }
+        }
+      }
+      .ot-cal-buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        padding: 0.75em;
+        background-color: #f7f7f7;
+        box-shadow: 1px -4px 2px 0px #eee;
+        button {
+          margin: 0 10px;
+        }
+      }
+    }
+  }
+}
+
+.no-border {
+  border: 0 !important;
+  &:hover {
+    cursor: default !important;
+    background-color: transparent !important;
+  }
+}
